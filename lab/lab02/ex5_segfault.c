@@ -11,8 +11,8 @@ void jedi(int *arr, int size) {
 }
 
 void ben(int *arr, int size) {
-    int *ptr = NULL;
-    *ptr = 10;
+//    int *ptr = NULL;
+//    *ptr = 10;
     jero(arr, size);
 }
 

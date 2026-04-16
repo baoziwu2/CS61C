@@ -96,39 +96,85 @@ bool test_is_vowel() {
 
 /* Task 4.1 */
 
-bool test_is_tail() {
-  // TODO: Implement this function.
+bool test_bool_function(bool (*bool_function)(char), const char *test_cases, const bool *expected_outputs) {
+  for (int i = 0; i < strlen(test_cases); ++ i) {
+    char test_case = test_cases[i];
+    bool expected_output = expected_outputs[i];
+    bool output = bool_function(test_case);
+    if(!assert_equals_bool("output", expected_output, output)) {
+      return false;
+    }
+  }
+
   return true;
+}
+
+bool test_char_function(char (*char_function)(char), const char *test_cases, const char *expected_outputs) {
+  for (int i = 0; i < strlen(test_cases); ++ i) {
+    char test_case = test_cases[i];
+    char expected_output = expected_outputs[i];
+    char output = char_function(test_case);
+    if(!assert_equals_char("output", expected_output, output)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool test_unsigned_function(unsigned int (*unsigned_function)(unsigned int, char), const char *test_cases, const unsigned int *expected_outputs) {
+  for (int i = 0; i < strlen(test_cases); ++ i) {
+    char test_case = test_cases[i];
+    unsigned int expected_output = expected_outputs[i];
+    unsigned int output = unsigned_function(1, test_case);
+    if(!assert_equals_unsigned_int("output", expected_output, output)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool test_is_tail() {
+  const char *test_cases = "wasdWASDx^<v>k";
+  const bool expected_outputs[] = {true, true, true, true, false, false, false, false, false, false, false, false, false, false};
+  return test_bool_function(is_tail, test_cases, expected_outputs);
 }
 
 bool test_is_head() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "wasdWASDx^<v>k";
+  const bool expected_outputs[] = {false, false, false, false, true, true, true, true, true, false, false, false, false, false};
+  return test_bool_function(is_head, test_cases, expected_outputs);
 }
 
 bool test_is_snake() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "wasdWASDx^<v>k";
+  const bool expected_outputs[] = {true, true, true, true, true, true, true, true, true, true, true, true, true, false};
+  return test_bool_function(is_snake, test_cases, expected_outputs);
 }
 
 bool test_body_to_tail() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "^<v>k";
+  const char expected_outputs[] = {'w', 'a', 's', 'd', '?'};
+  return test_char_function(body_to_tail, test_cases, expected_outputs);
 }
 
 bool test_head_to_body() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "WASDxk";
+  const char expected_outputs[] = {'^', '<', 'v', '>', '?', '?'};
+  return test_char_function(head_to_body, test_cases, expected_outputs);
 }
 
 bool test_get_next_row() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "<>^vWASDwasdxk"; 
+  const unsigned int expected_outputs[] = {1, 1, 0, 2, 0, 1, 2, 1, 0, 1, 2, 1, 1, 1}; 
+  return test_unsigned_function(get_next_row, test_cases, expected_outputs);
 }
 
 bool test_get_next_col() {
-  // TODO: Implement this function.
-  return true;
+  const char *test_cases = "<>^vWASDwasdxk"; 
+  const unsigned int expected_outputs[] = {0, 2, 1, 1, 1, 0, 1, 2, 1, 0, 1, 2, 1, 1};
+  return test_unsigned_function(get_next_col, test_cases, expected_outputs);
 }
 
 bool test_customs() {

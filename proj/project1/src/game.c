@@ -343,9 +343,18 @@ char* read_line(FILE* fp) {
 /* Task 5.2 */
 game_t* load_board(FILE* fp) { 
   game_t* game = malloc(sizeof(game_t));
+  if (game == NULL) {
+    return NULL;
+  }
   size_t cap = 8;
   game->board = malloc(cap * sizeof(char*));
+  if (game->board == NULL) {
+    free(game);
+    return NULL;
+  }
   game->num_rows = 0;
+  game->num_snakes = 0;
+  game->snakes = NULL;
 
   char* line;
   while ((line = read_line(fp)) != NULL) {
@@ -353,8 +362,8 @@ game_t* load_board(FILE* fp) {
       cap *= 2;
       char** tmp = realloc(game->board, cap * sizeof(char*));
       if (!tmp) {
-        free(game->board);
-        free(game);
+        free(line);
+        free_game(game);
         return NULL;
       }
       game->board = tmp;
@@ -362,8 +371,6 @@ game_t* load_board(FILE* fp) {
     game->board[game->num_rows ++] = line;
   }
 
-  game->num_snakes = 0;
-  game->snakes = NULL;
   return game;
 }
 
@@ -392,10 +399,15 @@ static void find_head(game_t* game, unsigned int snum) {
 /* Task 6.2 */
 game_t* initialize_snakes(game_t* game) {
   for (unsigned int row = 0; row < game->num_rows; ++row) {
-    for (unsigned int col = 0; get_board_at(game, row, col) != '\n'; ++col) {
+    for (unsigned int col = 0; get_board_at(game, row, col) != '\0' && get_board_at(game, row, col) != '\n'; ++col) {
       char c = get_board_at(game, row, col);
       if (is_tail(c)) {
-        game->snakes = realloc(game->snakes, sizeof(snake_t) * (game->num_snakes + 1));
+        snake_t* tmp = realloc(game->snakes, sizeof(snake_t) * (game->num_snakes + 1));
+        if (tmp == NULL) {
+          free_game(game);
+          return NULL;
+        }
+        game->snakes = tmp;
         snake_t* new_snake = &game->snakes[game->num_snakes];
         new_snake->tail_row = row;
         new_snake->tail_col = col;

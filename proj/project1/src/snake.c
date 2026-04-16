@@ -50,11 +50,23 @@ int main(int argc, char *argv[]) {
       return -1;
     }
     game = load_board(f);
-    initialize_snakes(game);
     fclose(f);
+    if (game == NULL) {
+      return -1;
+    }
+    game = initialize_snakes(game);
+    if (game == NULL) {
+      return -1;
+    }
   } else if (io_stdin) {
     game = load_board(stdin);
-    initialize_snakes(game);
+    if (game == NULL) {
+      return -1;
+    }
+    game = initialize_snakes(game);
+    if (game == NULL) {
+      return -1;
+    }
   } else {
     game = create_default_game();
   }

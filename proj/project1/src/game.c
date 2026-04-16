@@ -335,12 +335,34 @@ game_t *load_board(FILE *fp) { // load board from file pointer
   fill in the head row and col in the struct.
 */
 static void find_head(game_t *game, unsigned int snum) {
-  // TODO: Implement this function.
-  return;
+  snake_t *snake = &game->snakes[snum];
+  unsigned int cur_row = snake->tail_row;
+  unsigned int cur_col = snake->tail_col;
+  char cur_char = get_board_at(game, cur_row, cur_col);
+  while (!is_head(cur_char)) {
+    cur_row = get_next_row(cur_row, cur_char);
+    cur_col = get_next_col(cur_col, cur_char);
+    cur_char = get_board_at(game, cur_row, cur_col);
+  }
+  snake->head_row = cur_row;
+  snake->head_col = cur_col;
 }
 
 /* Task 6.2 */
 game_t *initialize_snakes(game_t *game) {
-  // TODO: Implement this function.
-  return NULL;
+  for(unsigned int row = 0; row < game->num_rows; ++ row) {
+    for(unsigned int col = 0; get_board_at(game, row, col) != '\n'; ++ col) {
+      char c = get_board_at(game, row, col);
+      if (is_tail(c)) {
+        game->snakes = realloc(game->snakes, sizeof(snake_t) * (game->num_snakes + 1));
+        snake_t *new_snake = &game->snakes[game->num_snakes];
+        new_snake->tail_row = row;
+        new_snake->tail_col = col;
+        find_head(game, game->num_snakes);
+        new_snake->live = true;
+        game->num_snakes ++;
+      }
+    }
+  }
+  return game;
 }

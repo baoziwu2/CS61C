@@ -265,11 +265,11 @@
       <a name="bit18" val="2"/>
       <a name="bit19" val="2"/>
       <a name="bit2" val="0"/>
-      <a name="bit20" val="3"/>
-      <a name="bit21" val="3"/>
-      <a name="bit22" val="3"/>
-      <a name="bit23" val="3"/>
-      <a name="bit24" val="3"/>
+      <a name="bit20" val="2"/>
+      <a name="bit21" val="2"/>
+      <a name="bit22" val="2"/>
+      <a name="bit23" val="2"/>
+      <a name="bit24" val="2"/>
       <a name="bit25" val="3"/>
       <a name="bit26" val="3"/>
       <a name="bit27" val="3"/>
@@ -317,7 +317,6 @@
     <comp lib="0" loc="(240,990)" name="Bit Extender">
       <a name="in_width" val="1"/>
       <a name="out_width" val="12"/>
-      <a name="type" val="zero"/>
     </comp>
     <comp lib="0" loc="(250,470)" name="Bit Extender">
       <a name="in_width" val="1"/>
@@ -325,6 +324,7 @@
     </comp>
     <comp lib="0" loc="(250,610)" name="Bit Extender">
       <a name="in_width" val="1"/>
+      <a name="out_width" val="21"/>
     </comp>
     <comp lib="0" loc="(260,670)" name="Constant">
       <a name="value" val="0x0"/>
@@ -446,11 +446,11 @@
       <a name="appear" val="center"/>
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
-      <a name="bit11" val="1"/>
-      <a name="bit12" val="1"/>
-      <a name="bit13" val="1"/>
-      <a name="bit14" val="1"/>
-      <a name="bit15" val="1"/>
+      <a name="bit11" val="2"/>
+      <a name="bit12" val="2"/>
+      <a name="bit13" val="2"/>
+      <a name="bit14" val="2"/>
+      <a name="bit15" val="2"/>
       <a name="bit16" val="2"/>
       <a name="bit17" val="2"/>
       <a name="bit18" val="2"/>

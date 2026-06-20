@@ -1,0 +1,3 @@
+[submodule "proj/project4"]
+	path = proj/project4
+	url = https://github.com/61c-teach/fa24-proj4-starter.git
